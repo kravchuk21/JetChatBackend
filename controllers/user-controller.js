@@ -66,6 +66,19 @@ class UserController {
             next();
         }
     }
+
+    async getMe(req, res, next) {
+        console.log(req)
+        try {
+            const id = req.user && req.user.id;
+            const users = await userService.getMe(id);
+            console.log("users", users)
+            return res.json({data: users});
+        } catch (e) {
+            res.status(e.status).json({message: e.message})
+            next();
+        }
+    };
 }
 
 

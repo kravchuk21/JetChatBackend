@@ -73,6 +73,10 @@ class UserService {
         await tokenService.saveToken(userDto.id, tokens.refreshToken);
         return {...tokens, user: userDto}
     }
+
+    getMe(id) {
+        return UserModel.findOne({_id: id}).select("-password -isActivated -activationCode").exec();
+    }
 }
 
 module.exports = new UserService();
